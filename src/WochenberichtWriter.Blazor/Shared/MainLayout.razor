@@ -1,0 +1,21 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider IsDarkMode=true/>
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar>
+        Wochenbericht Writer
+    </MudAppBar>
+    <MudDrawer Open="true">
+        <MudDrawerHeader>Wochenbericht Writer</MudDrawerHeader>
+        <MudNavMenu>
+            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Outlined.PlusOne" Href="weekreport">Wochenreport</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Outlined.TableChart" Href="learnfields">Lernfelder</MudNavLink>
+        </MudNavMenu>
+    </MudDrawer>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>

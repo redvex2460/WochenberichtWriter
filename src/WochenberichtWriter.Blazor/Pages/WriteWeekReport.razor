@@ -1,0 +1,40 @@
+﻿@page "/weekreport";
+<MudContainer>
+    <MudGrid>
+        <MudItem xs="12" sm="6" md="6">
+            <MudTextField Label="Name" T="string"></MudTextField>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="6">
+            <MudTextField Label="Vorname" T="string"></MudTextField>
+        </MudItem>
+        <MudItem xs="12" sm="12" md="12">
+            <MudTextField Label="Lehrgang" T="string"></MudTextField>
+        </MudItem>
+        <MudItem xs="12" sm="3" md="3">
+            <MudTextField Label="KW" T="string"></MudTextField>
+        </MudItem>
+        <MudItem xs="12" sm="3" md="3">
+            <MudTextField Label="Von" T="string"></MudTextField>
+        </MudItem>
+        <MudItem xs="12" sm="3" md="3">
+            <MudTextField Label="Bis" T="string"></MudTextField>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+<MudExpansionPanels>
+    <MudExpansionPanel Text="Montag">
+    </MudExpansionPanel>
+    <MudExpansionPanel Text="Dienstag">
+    </MudExpansionPanel>
+    <MudExpansionPanel Text="Mittwoch">
+    </MudExpansionPanel>
+    <MudExpansionPanel Text="Donnerstag">
+    </MudExpansionPanel>
+    <MudExpansionPanel Text="Freitag">
+    </MudExpansionPanel>
+</MudExpansionPanels>
+
+@code {
+
+}

@@ -3,9 +3,47 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{56113D7A-7D13-49CF-A127-4332124B5CF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WochenberichtWriter.CLI", "src\WochenberichtWriter.CLI\WochenberichtWriter.CLI.csproj", "{60E8DBA9-263F-44E8-8C68-EB36C8105780}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WochenberichtWriter.Data", "src\WochenberichtWriter.Data\WochenberichtWriter.Data.csproj", "{7B49E487-A060-4B05-AF0B-4A89DB5F6510}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WochenberichtWriter.Application", "src\WochenberichtWriter.Application\WochenberichtWriter.Application.csproj", "{A75D837D-B226-4C49-91C2-CAD7666EB64E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WochenberichtWriter.Blazor", "src\WochenberichtWriter.Blazor\WochenberichtWriter.Blazor.csproj", "{7914460A-0223-480F-882A-2A5F8801CA55}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{60E8DBA9-263F-44E8-8C68-EB36C8105780}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60E8DBA9-263F-44E8-8C68-EB36C8105780}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60E8DBA9-263F-44E8-8C68-EB36C8105780}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60E8DBA9-263F-44E8-8C68-EB36C8105780}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B49E487-A060-4B05-AF0B-4A89DB5F6510}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B49E487-A060-4B05-AF0B-4A89DB5F6510}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B49E487-A060-4B05-AF0B-4A89DB5F6510}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B49E487-A060-4B05-AF0B-4A89DB5F6510}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A75D837D-B226-4C49-91C2-CAD7666EB64E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A75D837D-B226-4C49-91C2-CAD7666EB64E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A75D837D-B226-4C49-91C2-CAD7666EB64E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A75D837D-B226-4C49-91C2-CAD7666EB64E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7914460A-0223-480F-882A-2A5F8801CA55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7914460A-0223-480F-882A-2A5F8801CA55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7914460A-0223-480F-882A-2A5F8801CA55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7914460A-0223-480F-882A-2A5F8801CA55}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{60E8DBA9-263F-44E8-8C68-EB36C8105780} = {56113D7A-7D13-49CF-A127-4332124B5CF6}
+		{7B49E487-A060-4B05-AF0B-4A89DB5F6510} = {56113D7A-7D13-49CF-A127-4332124B5CF6}
+		{A75D837D-B226-4C49-91C2-CAD7666EB64E} = {56113D7A-7D13-49CF-A127-4332124B5CF6}
+		{7914460A-0223-480F-882A-2A5F8801CA55} = {56113D7A-7D13-49CF-A127-4332124B5CF6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {80F09E8D-1A30-437E-B6C3-2E387DEBF25D}

@@ -1,0 +1,57 @@
+﻿@page "/learnfields";
+@using WochenberichtWriter.Application.Interfaces;
+@using WochenberichtWriter.Data.Entities;
+@inject ILearnModuleRepository repo;
+
+<MudDataGrid Items="repo.GetAllLearnModules()" RowsPerPage="10">
+    <Columns>
+        <PropertyColumn Property="x => x.LearnField" Title="Lernfeld"></PropertyColumn>
+        <PropertyColumn Property="x => x.Name" Title="Modul"></PropertyColumn>
+        <PropertyColumn Property="x => x.MaxHours" Title="Soll"></PropertyColumn>
+        <TemplateColumn>
+            <HeaderTemplate>
+                <MudText>Ist</MudText>
+            </HeaderTemplate>
+            <CellTemplate>
+                <MudText>@(context.Item.MaxHours - @context.Item.UsedHours)</MudText>
+            </CellTemplate>
+        </TemplateColumn>
+        <TemplateColumn>
+            <CellTemplate>
+                <MudButton Color="Color.Error" Variant="Variant.Outlined" FullWidth OnClick="@(() => {RemoveItem(context.Item);})">Entfernen</MudButton>
+            </CellTemplate>
+        </TemplateColumn>
+    </Columns>
+</MudDataGrid>
+<MudSpacer>
+</MudSpacer>
+<MudGrid Justify="Justify.Center" Style="align-items: center;">
+    <MudItem xs="12" sm="6" md="3">
+        <MudTextField Label="Lernfeld" Variant="Variant.Text" T="string" @bind-Value="learnFieldText"></MudTextField>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="3">
+        <MudTextField Label="Modul" Variant="Variant.Text" T="string" @bind-Value="moduleFieldText"></MudTextField>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="3">
+        <MudTextField Label="Soll" Variant="Variant.Text" T="decimal" @bind-Value="sollFieldText"></MudTextField>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="3" align-content-center>
+        <MudButton Variant="Variant.Outlined" FullWidth OnClick="AddNewLearnField">Lernfeld Hinzufügen</MudButton>
+    </MudItem>
+</MudGrid>
+
+@code {
+    string learnFieldText { get; set; }
+    string moduleFieldText { get; set; }
+    decimal sollFieldText { get; set; }
+
+    void AddNewLearnField()
+    {
+        repo.AddLearnModule(learnFieldText, moduleFieldText, sollFieldText);
+    }
+    void RemoveItem(LearnModule module)
+    {
+        repo.DeleteModule(module);
+        StateHasChanged();
+    }
+}
