@@ -2,18 +2,20 @@
 @using WochenberichtWriter.Application.Interfaces;
 @using WochenberichtWriter.Data.Entities;
 @inject ILearnModuleRepository repo;
+@inject IReportRepository reports;
 
 <MudDataGrid Items="repo.GetAllLearnModules()" RowsPerPage="10">
     <Columns>
         <PropertyColumn Property="x => x.LearnField" Title="Lernfeld"></PropertyColumn>
         <PropertyColumn Property="x => x.Name" Title="Modul"></PropertyColumn>
         <PropertyColumn Property="x => x.MaxHours" Title="Soll"></PropertyColumn>
+        <PropertyColumn Property="x => repo.GetModuleHours(x)" Title="Ist"></PropertyColumn>
         <TemplateColumn>
             <HeaderTemplate>
-                <MudText>Ist</MudText>
+                <MudText>Rest</MudText>
             </HeaderTemplate>
             <CellTemplate>
-                <MudText>@(context.Item.MaxHours - @context.Item.UsedHours)</MudText>
+                <MudText>@(context.Item.MaxHours - repo.GetModuleHours(context.Item))</MudText>
             </CellTemplate>
         </TemplateColumn>
         <TemplateColumn>

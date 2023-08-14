@@ -11,6 +11,7 @@ namespace WochenberichtWriter.Application.Database
     public class DatabaseContext : DbContext
     {
         public DbSet<LearnModule> Modules { get; set; }
+        public DbSet<Report> Reports { get; set; }
 
         public DatabaseContext(DbContextOptions options) : base(options)
         {

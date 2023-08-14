@@ -44,5 +44,20 @@ namespace WochenberichtWriter.Application.Database
         {
             return _context.Modules.FirstOrDefault(mod => mod.LearnField == ID);
         }
+
+        public decimal GetModuleHours(LearnModule module)
+        {
+            decimal value = 0.0M;
+            foreach(var repo in _context.Reports)
+            {
+                foreach(var mod in repo.GetLessons())
+                {
+                    if (mod.Module == module)
+                        value += mod.Hour;
+                }
+
+            }
+            return value;
+        }
     }
 }

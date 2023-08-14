@@ -13,5 +13,6 @@ namespace WochenberichtWriter.Application.Interfaces
         public LearnModule GetLearnModuleByFieldId(string ID);
         public void AddLearnModule(string learnField, string moduleName, decimal soll);
         public void DeleteModule(LearnModule module);
+        public decimal GetModuleHours (LearnModule module);
     }
 }
