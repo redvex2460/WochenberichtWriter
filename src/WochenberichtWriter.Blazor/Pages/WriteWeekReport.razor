@@ -1,0 +1,202 @@
+﻿@page "/weekreport/{reportid:int}";
+@page "/weekreport"
+@using WochenberichtWriter.Application.Interfaces;
+@using WochenberichtWriter.Data.Entities;
+@inject ILearnModuleRepository repo;
+@inject IReportRepository reports;
+@inject ILogger<WriteWeekReport> Logger
+@inject Application.ReportWriter reportWriter;
+<MudContainer>
+    <MudGrid>
+        <MudItem xs="12" sm="6" md="6">
+            <MudTextField Label="Name" T="string" @bind-Value="Report.Surname"></MudTextField>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="6">
+            <MudTextField Label="Vorname" T="string" @bind-Value="Report.Name"></MudTextField>
+        </MudItem>
+        <MudItem xs="12" sm="12" md="12">
+            <MudTextField Label="Lehrgang" T="string" @bind-Value="Report.Course"></MudTextField>
+        </MudItem>
+        <MudItem xs="12" sm="3" md="3">
+            <MudTextField Label="KW" T="int" @bind-Value="Report.CalenderWeek"></MudTextField>
+        </MudItem>
+        <MudItem xs="12" sm="3" md="3">
+            <MudTextField Label="Von" T="string" @bind-Value="Report.StartDate"></MudTextField>
+        </MudItem>
+        <MudItem xs="12" sm="3" md="3">
+            <MudTextField Label="Bis" T="string" @bind-Value="Report.EndDate"></MudTextField>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+<MudExpansionPanels MultiExpansion>
+    <MudExpansionPanel Text="Montag">
+        <MudTable Items="Report.MondayLessons" Hover>
+            <HeaderContent>
+                <MudTh>Nr</MudTh>
+                <MudTh>LF</MudTh>
+                <MudTh>Text</MudTh>
+                <MudTh>Stunden</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>@(Report.MondayLessons.IndexOf(context) + 1)</MudTd>
+                <MudTd>@context.Module.LearnField</MudTd>
+                <MudTd>@context.Text</MudTd>
+                <MudTd>@context.Hour</MudTd>
+            </RowTemplate>
+        </MudTable>
+    </MudExpansionPanel>
+    <MudExpansionPanel Text="Dienstag">
+        <MudTable Items="Report.TuesdayLessons" Hover>
+            <HeaderContent>
+                <MudTh>Nr</MudTh>
+                <MudTh>LF</MudTh>
+                <MudTh>Text</MudTh>
+                <MudTh>Stunden</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>@(Report.TuesdayLessons.IndexOf(context) + 1)</MudTd>
+                <MudTd>@context.Module.LearnField</MudTd>
+                <MudTd>@context.Text</MudTd>
+                <MudTd>@context.Hour</MudTd>
+            </RowTemplate>
+        </MudTable>
+    </MudExpansionPanel>
+    <MudExpansionPanel Text="Mittwoch">
+            <MudTable Items="Report.WednesdayLessons" Hover>
+            <HeaderContent>
+                <MudTh>Nr</MudTh>
+                <MudTh>LF</MudTh>
+                <MudTh>Text</MudTh>
+                <MudTh>Stunden</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>@(Report.WednesdayLessons.IndexOf(context) + 1)</MudTd>
+                <MudTd>@context.Module.LearnField</MudTd>
+                <MudTd>@context.Text</MudTd>
+                <MudTd>@context.Hour</MudTd>
+            </RowTemplate>
+        </MudTable>
+    </MudExpansionPanel>
+    <MudExpansionPanel Text="Donnerstag">
+        <MudTable Items="Report.ThursdayLessons" Hover>
+            <HeaderContent>
+                <MudTh>Nr</MudTh>
+                <MudTh>LF</MudTh>
+                <MudTh>Text</MudTh>
+                <MudTh>Stunden</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>@(Report.ThursdayLessons.IndexOf(context) + 1)</MudTd>
+                <MudTd>@context.Module.LearnField</MudTd>
+                <MudTd>@context.Text</MudTd>
+                <MudTd>@context.Hour</MudTd>
+            </RowTemplate>
+        </MudTable>
+    </MudExpansionPanel>
+    <MudExpansionPanel Text="Freitag">
+        <MudTable Items="Report.FridayLessons" Hover>
+            <HeaderContent>
+                <MudTh>Nr</MudTh>
+                <MudTh>LF</MudTh>
+                <MudTh>Text</MudTh>
+                <MudTh>Stunden</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>@(Report.FridayLessons.IndexOf(context) + 1)</MudTd>
+                <MudTd>@context.Module.LearnField</MudTd>
+                <MudTd>@context.Text</MudTd>
+                <MudTd>@context.Hour</MudTd>
+            </RowTemplate>
+        </MudTable>
+    </MudExpansionPanel>
+</MudExpansionPanels>
+<MudGrid>
+    <MudItem xs="12" md="3" sm="3">
+        <MudSelect T="string" Label="Tag" @bind-Value=weekday>
+            <MudSelectItem Value="@("Monday")">Montag</MudSelectItem>
+            <MudSelectItem Value="@("Tuesday")">Dienstag</MudSelectItem>
+            <MudSelectItem Value="@("Wednesday")">Mittwoch</MudSelectItem>
+            <MudSelectItem Value="@("Thursday")">Donnerstag</MudSelectItem>
+            <MudSelectItem Value="@("Friday")">Freitag</MudSelectItem>
+        </MudSelect>
+    </MudItem>
+    <MudItem xs="12" md="3" sm="3">
+        <MudSelect T="LearnModule" Label="Lernfeld" @bind-Value=module>
+            @foreach (var mod in repo.GetAllLearnModules())
+            {
+                <MudSelectItem Value="mod">@mod.LearnField</MudSelectItem>
+            }
+        </MudSelect>
+    </MudItem>
+    <MudItem xs="12" md="3" sm="3">
+        <MudTextField T="string" Label="Text" @bind-Value=lessontext></MudTextField>
+    </MudItem>
+    <MudItem xs="12" md="3" sm="3">
+        <MudTextField T="decimal" Label="Stunden" @bind-Value=hours></MudTextField>
+    </MudItem>
+    <MudItem xs="12" md="12" sm="12">
+        <MudButton FullWidth Variant="Variant.Outlined" OnClick="@(() => {AddLessonEntry(weekday);})">Hinzufügen</MudButton>
+    </MudItem>
+</MudGrid>
+<MudButton FullWidth OnClick="generateFile">Save</MudButton>
+
+@code {
+    List<LessonEntry> MondayLessons = new List<LessonEntry>(), TuesdayLessons = new List<LessonEntry>(), WednesdayLessons = new List<LessonEntry>(), ThursdayLessons = new List<LessonEntry>(), FridayLessons = new List<LessonEntry>();
+    Report Report { get; set; }
+    [Parameter] public int reportid { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        Report = reports.GetReport(reportid) ?? new Report();
+    }
+
+    //Formfields
+    string weekday {get;set;}
+    LearnModule module {get;set;}
+    string lessontext {get;set;}
+    decimal hours { get; set; }
+
+    string name {get;set;}
+    string surname { get; set; }
+    string course { get; set; }
+    string kw {get;set;}
+    string von {get;set;}
+    string bis { get; set; }
+
+    void generateFile()
+    {
+        reports.AddReport(Report);
+    }
+
+    void AddLessonEntry(string day = "")
+    {
+        if(day == "")
+            return;
+        var newLesson = new LessonEntry()
+            {
+                Hour = hours,
+                Module = module,
+                Text = lessontext
+            };
+        switch(day)
+        {
+            case "Monday":
+                Report.MondayLessons.Add(newLesson);
+                break;
+            case "Tuesday":
+                Report.TuesdayLessons.Add(newLesson);
+                break;
+            case "Wednesday":
+                Report.WednesdayLessons.Add(newLesson);
+                break;
+            case "Thursday":
+                Report.ThursdayLessons.Add(newLesson);
+                break;
+            case "Friday":
+                Report.FridayLessons.Add(newLesson);
+                break;
+        }
+    }
+}

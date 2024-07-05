@@ -1,0 +1,43 @@
+﻿@page "/reports";
+@using WochenberichtWriter.Data.Entities;
+@inject IReportRepository reports;
+@inject ReportWriter writer;
+@inject IJSRuntime js;
+@inject NavigationManager navmgr;
+<MudDataGrid Items="reports.GetReports()">
+    <Columns>
+        <TemplateColumn>
+            <HeaderTemplate>
+                <MudText>Bericht</MudText>
+            </HeaderTemplate>
+            <CellTemplate>
+                <MudText>@($"Bericht (KW{@context.Item.CalenderWeek}) {context.Item.StartDate} - {context.Item.EndDate}")</MudText>
+                </CellTemplate>
+        </TemplateColumn>
+        <TemplateColumn>
+            <HeaderTemplate>
+                <MudText></MudText>
+            </HeaderTemplate>
+            <CellTemplate>
+                    <MudButton Variant="Variant.Filled" Color="Color.Warning" Href="@($"/weekreport/{context.Item.ID}")">Bearbeiten</MudButton>
+            </CellTemplate>
+        </TemplateColumn>
+        <TemplateColumn>
+            <HeaderTemplate>
+                <MudText></MudText>
+            </HeaderTemplate>
+            <CellTemplate>
+                <MudButton Variant="Variant.Filled" Color="Color.Error" OnClick="(() => PrintFile(context.Item))">Drucken</MudButton>
+            </CellTemplate>
+        </TemplateColumn>
+    </Columns>
+</MudDataGrid>
+
+    @code {
+    void PrintFile(Report report)
+    {
+        writer.Write(report);
+        HttpClient client = new HttpClient();
+        navmgr.NavigateTo($"{navmgr.BaseUri}output.xlsx",true);
+    }
+}

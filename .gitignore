@@ -1,2 +1,6 @@
 .vs/
 src/*/obj/*
+*.db
+*.db-shm
+*.db-wal
+src/*/bin/
